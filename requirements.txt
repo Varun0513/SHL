@@ -1,0 +1,14 @@
+# Core web framework
+fastapi==0.111.0
+
+# ASGI server to run FastAPI
+uvicorn[standard]==0.29.0
+
+# Data validation (Pydantic v2 is bundled with FastAPI 0.111+)
+pydantic==2.7.1
+
+# Groq Python SDK
+groq==0.8.0
+
+# Loads GROQ_API_KEY from a .env file so we never hard-code secrets
+python-dotenv==1.0.1
