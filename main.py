@@ -17,25 +17,33 @@ Key design choices:
     break the automated evaluation harness.
 """
 
+import sys
 import os
 import traceback
+
+# Force unbuffered stdout so crash output is never lost in Render logs
+os.environ["PYTHONUNBUFFERED"] = "1"
+
+print("[BOOT] Python", sys.version, flush=True)
+print("[BOOT] main.py: importing fastapi...", flush=True)
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+print("[BOOT] fastapi OK", flush=True)
 
-print("[BOOT] main.py: importing schemas...")
+print("[BOOT] importing schemas...", flush=True)
 try:
     from schemas import ChatRequest, ChatResponse
-    print("[BOOT] schemas OK")
+    print("[BOOT] schemas OK", flush=True)
 except Exception as e:
-    print(f"[BOOT] ERROR importing schemas: {e}")
+    print(f"[BOOT] ERROR importing schemas: {e}", flush=True)
     traceback.print_exc()
 
-print("[BOOT] importing agent...")
+print("[BOOT] importing agent...", flush=True)
 try:
     from agent import run_agent
-    print("[BOOT] agent OK")
+    print("[BOOT] agent OK", flush=True)
 except Exception as e:
-    print(f"[BOOT] ERROR importing agent: {e}")
+    print(f"[BOOT] ERROR importing agent: {e}", flush=True)
     traceback.print_exc()
     raise
 
