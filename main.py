@@ -133,3 +133,14 @@ async def global_exception_handler(request: Request, exc: Exception):
             "end_of_conversation": False,
         },
     )
+
+
+# ---------------------------------------------------------------------------
+# Entry point — used when the start command is `python main.py`.
+# Reading PORT via os.environ avoids shell $VAR expansion issues on Render.
+# ---------------------------------------------------------------------------
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 10000))
+    print(f"[BOOT] Starting uvicorn on port {port}")
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
