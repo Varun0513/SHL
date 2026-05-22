@@ -17,11 +17,27 @@ Key design choices:
     break the automated evaluation harness.
 """
 
+import os
+import traceback
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
-from schemas import ChatRequest, ChatResponse
-from agent import run_agent
+print("[BOOT] main.py: importing schemas...")
+try:
+    from schemas import ChatRequest, ChatResponse
+    print("[BOOT] schemas OK")
+except Exception as e:
+    print(f"[BOOT] ERROR importing schemas: {e}")
+    traceback.print_exc()
+
+print("[BOOT] importing agent...")
+try:
+    from agent import run_agent
+    print("[BOOT] agent OK")
+except Exception as e:
+    print(f"[BOOT] ERROR importing agent: {e}")
+    traceback.print_exc()
+    raise
 
 
 app = FastAPI(
