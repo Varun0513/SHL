@@ -42,7 +42,8 @@ load_dotenv()
 # This avoids re-reading catalog.json and re-creating the Groq client on
 # every POST /chat call, which would add unnecessary latency.
 # ---------------------------------------------------------------------------
-_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+_api_key = os.getenv("GROQ_API_KEY")
+_client = Groq(api_key=_api_key if _api_key else "MISSING_GROQ_API_KEY")
 _searcher = CatalogSearcher()   # loads catalog.json at import time
 
 
